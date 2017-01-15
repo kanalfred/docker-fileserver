@@ -5,9 +5,13 @@
 # Refer:
 # https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7
 #
+# Create volume container:
+# docker create -v /home/alfred/workspace/docker/data/fileserver/mnt:/mnt --name data-fileserver centos:7
+#
 # Run:
 # docker run -e 'ROOT_PASSWORD=test123' -h fileserver --name fileserver -p 2201:22 -d kanalfred/fileserver
 # docker run -h fileserver --name fileserver -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp -d kanalfred/fileserver
+# docker run -h fileserver --name fileserver --volumes-from data-fileserver -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp -d kanalfred/fileserver
 # 
 # Build:
 # docker build -t kanalfred/fileserver .
@@ -24,6 +28,9 @@
 # 
 # To import samba password file:
 # pdbedit -i smbpasswd:/root/samba-users.backup
+# 
+# Check samba users
+# sudo pdbedit -L -v
 #
 ##############################
 
