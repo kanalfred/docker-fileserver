@@ -31,7 +31,20 @@
 # 
 # Check samba users
 # sudo pdbedit -L -v
-#
+# 
+# supervisord Nondaemonizing of Subprocesses
+# http://supervisord.org/subprocess.html#nondaemonizing-of-subprocesses
+# 
+# fileserver (same hd sync)
+# filesync   (backup server to seperate hd)
+# openvpn
+# dns
+# workspace
+# web
+# mail
+# mysql
+# couchbase
+# git
 ##############################
 
 FROM kanalfred/centos7:latest
@@ -43,7 +56,8 @@ ADD container-files/config /config
 
 RUN \
     yum -y install \
-        samba samba-client samba-common
+        samba samba-client samba-common \
+        nfs-utils
 #        openssh openssh-server openssh-clients \
 #        yum clean all && \
 
