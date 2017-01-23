@@ -1,0 +1,5 @@
+/mnt/storage/share/Public	192.168.3.0/24(rw,sync,no_root_squash,no_subtree_check)
+#/mnt/storage/share/Media	192.168.3.181(rw,sync,no_root_squash,no_subtree_check)
+#/mnt/storage/share/Media	192.168.3.181(rw,anonuid=0,anongid=0,sync,all_squash,no_subtree_check)
+/mnt/storage/share/Media	192.168.3.181(ro,anonuid=0,anongid=0,sync,all_squash,no_subtree_check)
+/mnt/backup/vm			192.168.3.0/24(rw,sync,no_root_squash,no_subtree_check)

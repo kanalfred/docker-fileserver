@@ -5,31 +5,36 @@
 # Refer:
 # https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7
 #
-# Create volume container:
-# docker create -v /home/alfred/workspace/docker/data/fileserver/mnt:/mnt --name data-fileserver centos:7
-#
 # Run:
 # docker run -e 'ROOT_PASSWORD=test123' -h fileserver --name fileserver -p 2201:22 -d kanalfred/fileserver
 # docker run -h fileserver --name fileserver -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp -d kanalfred/fileserver
-# docker run -h fileserver --name fileserver --volumes-from data-fileserver -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp -d kanalfred/fileserver
+# docker run -h fileserver --name fileserver --volumes-from data-fileserver --volumes-from data-fileserver-bak -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp -d kanalfred/fileserver
 # 
 # Build:
 # docker build -t kanalfred/fileserver .
 #
+# Create volume container:
+# docker create -v /home/alfred/workspace/docker/data/fileserver/mnt/storage:/mnt/storage --name data-fileserver centos:7
+# docker create -v /home/alfred/workspace/docker/data/fileserver/mnt/storage-bak:/mnt/storage-bak --name data-fileserver-bak centos:7
+#
 # Dependancy:
 # Centos 7
 #
-# Add new users:
+# Crontab config:
+# /etc/cron.d/
+#
+# Add samba users:
+# 1) add user
 #  smbpasswd -a share
-#  # export new smb password file
-#  ######pdbedit -e smbpasswd:/root/samba-users.backup
+# 2) export new smb password file
+#  ######pdbedit -e smbpasswd:/root/samba-users.backup # (doesn't work)
 #  sudo pdbedit -L -w > /root/samba-users.backup
-#  # replace with new export samba-users.backup to config/samba-users.backup
+# 3) replace with new export samba-users.backup to config/samba-users.backup
 # 
 # To import samba password file:
 # pdbedit -i smbpasswd:/root/samba-users.backup
 # 
-# Check samba users
+# Check samba users:
 # sudo pdbedit -L -v
 # 
 # supervisord Nondaemonizing of Subprocesses
@@ -51,14 +56,16 @@ FROM kanalfred/centos7:latest
 MAINTAINER Alfred Kan <kanalfred@gmail.com>
 
 # Add Files
+#/etc/cron.d
 ADD container-files/etc /etc 
 ADD container-files/config /config 
 
 RUN \
     yum -y install \
         samba samba-client samba-common \
-        nfs-utils
-#        openssh openssh-server openssh-clients \
+        nfs-utils \
+        rsync \
+        rsnapshot
 #        yum clean all && \
 
 RUN \
@@ -69,6 +76,10 @@ RUN \
     useradd share && \
     useradd alfred && \
     useradd akimi && \
+
+    # add user to share gruop
+    usermod -a -G share alfred && \
+    usermod -a -G share akimi && \
 
     # import samber users
     pdbedit -i smbpasswd:/config/samba-users3.backup && \

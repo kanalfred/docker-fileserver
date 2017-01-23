@@ -1,0 +1,6 @@
+MAILTO=kanalfred@gmail.com
+
+### Rsnyc ###
+# rsync backup storage - Daily every day after 5:00am
+#00 05 * * * /usr/local/bin/storage-sync.sh
+00 05 * * * /config/scripts/storage-sync.sh
