@@ -1,6 +1,9 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=kanalfred@gmail.com
 
 ### Rsnapshot ###
 # Data Storage - Weekly Snapshot every Sun at 1:00am 
 #00 01 * * Mon /usr/bin/rsnapshot weekly
-00 01 * * Sun /usr/bin/rsnapshot -c /etc/rsnapshot/storage.conf weekly
+00 01 * * Sun root /usr/bin/rsnapshot -c /etc/rsnapshot/storage.conf weekly
+

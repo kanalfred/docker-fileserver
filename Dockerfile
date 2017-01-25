@@ -4,6 +4,8 @@
 #
 # Refer:
 # https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7
+# cron issue
+# http://stackoverflow.com/questions/31644391/docker-centos-7-cron-not-working-in-local-machine
 #
 # Run:
 # docker run -e 'ROOT_PASSWORD=test123' -h fileserver --name fileserver -p 2201:22 -d kanalfred/fileserver
@@ -83,6 +85,10 @@ RUN \
 
     # import samber users
     pdbedit -i smbpasswd:/config/samba-users3.backup && \
+     
+    # cron.d files permission
+    chown -R root:root /etc/cron.d/* && \
+    chmod -R 644 /etc/cron.d/*  && \
 
     # testing need remove
     mkdir -p /mnt/storage/share && \
