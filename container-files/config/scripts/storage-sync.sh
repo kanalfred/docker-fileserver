@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /mnt/storage-bak/
-/usr/bin/rsync -vp -a -H --delete /mnt/storage/ /mnt/storage-bak/ > /var/log/rsyncStorage.log
+cd /mnt/storage_bak/
+/usr/bin/rsync -vp -a -H --delete /mnt/storage/ /mnt/storage_bak/ > /var/log/rsyncStorage.log
