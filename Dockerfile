@@ -10,7 +10,7 @@
 # Run:
 # docker run -e 'ROOT_PASSWORD=test123' -h fileserver --name fileserver -p 2201:22 -d kanalfred/fileserver
 # docker run -h fileserver --name fileserver -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp -d kanalfred/fileserver
-# docker run -h fileserver --name fileserver --volumes-from data-fileserver --volumes-from data-fileserver-bak -p 2201:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp --restart always -d kanalfred/fileserver
+# docker run -h fileserver --name fileserver --volumes-from data-fileserver --volumes-from data-fileserver-bak --volumes-from data-other -p 2200:22 -p 445:445 -p 139:139 -p 135:135 -p 137:137/udp -p 138:138/udp --restart always -d kanalfred/fileserver
 # 
 # Build:
 # docker build -t kanalfred/fileserver .
