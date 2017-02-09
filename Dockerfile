@@ -87,7 +87,7 @@ RUN \
     usermod -a -G share akimi && \
 
     # import samber users
-    pdbedit -i smbpasswd:/config/samba-users3.backup && \
+    pdbedit -i smbpasswd:/config/samba-users.backup && \
      
     # cron.d files permission
     chown -R root:root /etc/cron.d/* && \
