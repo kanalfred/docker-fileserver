@@ -16,11 +16,13 @@
 # docker build -t kanalfred/fileserver .
 #
 # Create volume container:
+# [local]
 # docker create -v /home/alfred/workspace/docker/data/fileserver/mnt/storage:/mnt/storage --name data-fileserver centos:7
 # docker create -v /home/alfred/workspace/docker/data/fileserver/mnt/storage_bak:/mnt/storage_bak --name data-fileserver-bak centos:7
-
+# [coreos]
 # docker create -v /mnt/storage:/mnt/storage --name data-fileserver centos:7
 # docker create -v /mnt/storage_bak:/mnt/storage_bak --name data-fileserver-bak centos:7
+# docker create -v /mnt/other:/mnt/other --name data-other centos:7
 #
 # Dependancy:
 # Centos 7
