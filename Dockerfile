@@ -33,6 +33,7 @@
 # Add samba users:
 # 1) add user
 #  smbpasswd -a share
+#  * For passwd update (smbpasswd -U share)
 # 2) export new smb password file
 #  ######pdbedit -e smbpasswd:/root/samba-users.backup # (doesn't work)
 #  sudo pdbedit -L -w > /root/samba-users.backup
